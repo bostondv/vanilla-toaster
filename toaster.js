@@ -1,4 +1,9 @@
 export default (() => {
+  const options = {
+    timeout: 5000,
+    transition: 400
+  }
+
   let container = null
 
   const addMessage = message => {
@@ -7,11 +12,18 @@ export default (() => {
     }
 
     const node = document.createElement('div')
-    node.classList.add('toaster__message')
-    node.textContent = message
+    node.classList.add('toaster__message-container')
+    node.innerHTML = `<div class="toaster__message">${message}</div>`
     container.appendChild(node)
 
-    setTimeout(() => node.parentNode.removeChild(node), 5000)
+    setTimeout(() =>
+      node.querySelector('div').classList.add('toaster__message--visible')
+    )
+
+    setTimeout(() => {
+      node.querySelector('div').classList.remove('toaster__message--visible')
+      setTimeout(() => node.parentNode.removeChild(node), options.transition)
+    }, options.timeout)
   }
 
   const init = () => {
