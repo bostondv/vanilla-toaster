@@ -1,0 +1,21 @@
+<html>
+  <head></head>
+  <body>
+    <form>
+      <input id="message" placeholder="Add message" />
+      <button id="add">Toast!</button>
+    </form>
+    <script type="module">
+      import toaster from './toaster.js'
+
+      const form = document.querySelector('form')
+      const message = document.querySelector('#message')
+
+      form.addEventListener('submit', event => {
+        event.preventDefault()
+        toaster.add(message.value)
+        message.value = ''
+      })
+    </script>
+  </body>
+</html>
