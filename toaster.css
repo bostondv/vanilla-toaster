@@ -1,20 +1,20 @@
-.toaster {
+.toast-container {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
 }
 
-.toaster__message-container {
+.toast-message-wrap {
   max-width: 20rem;
   margin-bottom: 1rem;
   text-align: right;
 }
 
-.toaster__message-container:last-child {
+.toast-message-wrap:last-child {
   margin-bottom: 0;
 }
 
-.toaster__message {
+.toast-message {
   display: inline-block;
   background: black;
   color: white;
@@ -24,6 +24,6 @@
   transition: opacity 400ms;
 }
 
-.toaster__message--visible {
+.toast-message--visible {
   opacity: 1;
 }

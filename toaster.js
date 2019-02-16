@@ -1,40 +1,39 @@
-export default (() => {
-  const options = {
-    timeout: 5000,
-    transition: 400
-  }
+const _defaults = {
+  timeout: 5000,
+  transition: 400
+}
 
-  let container = null
+const _toast = (message, options = {}) => {
+  let container = document.querySelector('.toast-container')
 
-  const addMessage = message => {
-    if (!message) {
-      return
-    }
+  options = Object.assign({}, _defaults, options)
 
-    const node = document.createElement('div')
-    node.classList.add('toaster__message-container')
-    node.innerHTML = `<div class="toaster__message">${message}</div>`
-    container.appendChild(node)
-
-    setTimeout(() =>
-      node.querySelector('div').classList.add('toaster__message--visible')
-    )
-
-    setTimeout(() => {
-      node.querySelector('div').classList.remove('toaster__message--visible')
-      setTimeout(() => node.parentNode.removeChild(node), options.transition)
-    }, options.timeout)
-  }
-
-  const init = () => {
+  if (!container) {
     container = document.createElement('div')
-    container.classList.add('toaster')
+    container.classList.add('toast-container')
     document.body.appendChild(container)
   }
 
-  init()
-
-  return {
-    add: addMessage
+  if (!message) {
+    return
   }
-})()
+
+  const node = document.createElement('div')
+  node.classList.add('toast-message-wrap')
+  node.innerHTML = `<div class="toast-message">${message}</div>`
+
+  container.appendChild(node)
+
+  setTimeout(() =>
+    node.querySelector('div').classList.add('toast-message--visible')
+  )
+
+  setTimeout(() => {
+    node.querySelector('div').classList.remove('toast-message--visible')
+    setTimeout(() => node.parentNode.removeChild(node), options.transition)
+  }, options.timeout)
+}
+
+export const message = message => _toast(message)
+
+export const setDefaults = options => Object.assign(_defaults, options)
